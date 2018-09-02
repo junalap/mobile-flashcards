@@ -1,7 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 
-const DeckListItem = ({ deck }) => {
+const DeckListItem = props => {
+  const { deck } = props;
+
   return (
     <View style={styles.deckListItem}>
       <Text>{deck.title}</Text>
