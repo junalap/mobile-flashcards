@@ -1,14 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const DeckListItem = props => {
-  const { deck } = props;
+  const { deck, navigate } = props;
 
   return (
-    <View style={styles.deckListItem}>
+    <TouchableOpacity
+      style={styles.deckListItem}
+      onPress={() => { navigate('Deck', { deckId: deck.id }) } }
+    >
       <Text>{deck.title}</Text>
       <Text>{deck.questions && `${deck.questions.length} cards`}</Text>
-    </View>
+    </TouchableOpacity>
   )
 };
 

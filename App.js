@@ -5,13 +5,15 @@ import NavigationService from './utils/NavigationService';
 import store from './store';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
+import Deck from  './components/Deck';
 
-import { requestDecks } from './actions/index';
+import { requestDecks, requestQuestions } from './actions/index';
 
 const RootStack = createStackNavigator(
   {
     Home: DeckList,
-    AddDeck: AddDeck
+    AddDeck: AddDeck,
+    Deck: Deck
   },
   {
     initialRoute: 'Home',
@@ -27,6 +29,7 @@ const RootStack = createStackNavigator(
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(requestDecks());
+    this.props.dispatch(requestQuestions());
   }
 
   render() {

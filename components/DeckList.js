@@ -9,22 +9,19 @@ class DeckList extends Component {
     title: "All Decks"
   }
 
-  componentDidMount() {
-    // this.props.dispatch(addDeck('c'));
-  }
-
   render() {
     const decks = this.props.decks;
+    const { navigate } = this.props.navigation;
 
     return (
       <View style={styles.container}>
         <ScrollView styles={styles.scrollView}>
           {Object.keys(decks).map((key, i) => (
-            <DeckListItem key={i} deck={decks[key]} />
+            <DeckListItem key={i} deck={decks[key]} navigate={navigate} />
           ))}
         </ScrollView>
         <Button
-          onPress={() => this.props.navigation.navigate({routeName: 'AddDeck'})}
+          onPress={() => navigate({routeName: 'AddDeck'})}
           title="Add Deck"
           color="#841584"
         />

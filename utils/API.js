@@ -1,6 +1,7 @@
 import uuid from 'uuid/v4';
 import { AsyncStorage } from 'react-native';
-// AsyncStorage.clear()
+
+AsyncStorage.getAllKeys((error, keys) => console.log(keys))
 const fetchCollection = (resourceName) => {
   const idsKey = `${resourceName}Ids`;
 
@@ -36,7 +37,7 @@ const createResource = (resourceName, object) => {
   const resource = {...object, id: uuid()}
 
   return AsyncStorage.getItem(resourceIdsKey).then(resourceIdsJSON => {
-    const allIds = JSON.parse(resourceIdsJSON || []);
+    const allIds = JSON.parse(resourceIdsJSON) || [];
 
     return AsyncStorage.setItem(`${resourceName}:${resource.id}`, JSON.stringify(resource)).then(() => {
       allIds.push(resource.id);
@@ -53,7 +54,7 @@ const createResource = (resourceName, object) => {
 
 export const fetchDecks = () => fetchCollection('deck');
 
-export const fetchQuestions = () => {};
+export const fetchQuestions = () => fetchCollection('question');
 
 export const createDeck = (title) => {
   const id = uuid();
@@ -64,4 +65,14 @@ export const createDeck = (title) => {
   };
 
   return createResource('deck', deckObject);
+};
+
+export const createQuestion = (question) => {
+  const id = uuid();
+  const questionObject = {
+    ...question,
+    id
+  };
+
+  return createResource('question', questionObject);
 };
