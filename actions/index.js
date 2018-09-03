@@ -22,7 +22,7 @@ export const addDeck = (title) => {
         dispatch(deckReceived(deck))}
       )
       .catch(error => {
-          console.warn(error)
+        console.warn(error)
     })
   };
 };

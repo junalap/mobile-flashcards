@@ -3,11 +3,14 @@ import { Provider, connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 import store from './store';
 import DeckList from './components/DeckList';
+import AddDeck from './components/AddDeck';
+
 import { requestDecks } from './actions/index';
 
 const RootStack = createStackNavigator(
   {
-    Home: DeckList
+    Home: DeckList,
+    AddDeck: AddDeck
   },
   {
     initialRoute: 'Home',

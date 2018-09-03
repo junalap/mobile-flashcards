@@ -28,7 +28,7 @@ const fetchCollection = (resourceName) => {
       return new Promise((resolve, reject) => {
         return resolve(resourceList);
       })
-    }).catch((error) => console.log(error));
+    }).catch((error) => console.warn(error));
   });
 };
 
