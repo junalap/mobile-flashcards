@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { Button, ScrollView, View } from 'react-native';
 import { connect } from 'react-redux';
 import DeckListItem from './DeckListItem';
+import { addDeck } from '../actions/index';
 
 class DeckList extends Component {
   static navigationOptions = {
     title: "All Decks"
+  }
+
+  componentDidMount() {
+    // this.props.dispatch(addDeck('c'));
   }
 
   render() {

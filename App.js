@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
+import NavigationService from './utils/NavigationService';
 import store from './store';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
@@ -29,7 +30,13 @@ class App extends React.Component {
   }
 
   render() {
-    return <RootStack />
+    return (
+      <RootStack
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+    );
   }
 };
 

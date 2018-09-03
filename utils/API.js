@@ -1,7 +1,6 @@
 import uuid from 'uuid/v4';
 import { AsyncStorage } from 'react-native';
-
-
+// AsyncStorage.clear()
 const fetchCollection = (resourceName) => {
   const idsKey = `${resourceName}Ids`;
 
