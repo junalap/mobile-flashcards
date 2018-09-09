@@ -17,8 +17,9 @@ export default function quiz(state = initialState, action) {
   switch(action.type) {
     case START_QUIZ:
       console.log('START_QUIZ')
+      console.log(action)
       return {
-        ...state,
+        ...initialState,
         questions: action.questions,
         deckId: Object.values(action.questions)[0].deckId
       };
@@ -27,14 +28,17 @@ export default function quiz(state = initialState, action) {
       const correctCount = answeredCorrectly ? state.correctCount + 1: state.correctCount
       const nextIndex = state.currentQuestionIndex + 1;
 
+      const complete = nextIndex > Object.keys(state.questions).length - 1;
       // console.log('complete: ', nextIndex > state.questions.length - 1)
+
 
       return {
         ...state,
         correctCount,
-        currentQuestionIndex: state.currentQuestionIndex + 1,
-        complete: nextIndex > Object.keys(state.questions).length - 1,
-        answerVisible: false
+        currentQuestionIndex: complete ? 0 : state.currentQuestionIndex + 1,
+        complete: complete,
+        answerVisible: false,
+        deckId: complete ? null : state.deckId
       };
     case SHOW_ANSWER:
       return {
