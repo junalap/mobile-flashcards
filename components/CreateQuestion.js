@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, View, Text, TextInput } from 'react-native';
-import { connect } from 'react-redux';
 
 class CreateQuestion extends Component {
   constructor(props) {
@@ -28,7 +27,7 @@ class CreateQuestion extends Component {
           value={this.state.answer}
         />
         <Button
-          onPress={() => { this.props.dispatch(this.props.addQuestion({...this.state, deckId: this.props.deckId})) }}
+          onPress={() => { this.props.addQuestion(this.state) }}
           title='Add Card'
         />
       </View>
@@ -36,4 +35,4 @@ class CreateQuestion extends Component {
   }
 }
 
-export default connect()(CreateQuestion);
+export default CreateQuestion;

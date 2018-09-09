@@ -27,7 +27,7 @@ class Quiz extends Component {
     const { questions, currentQuestionIndex, complete, correctCount, answerVisible } = this.props;
 
     return <View>
-      <Text>Yo, im a quiz</Text>
+      <Text>QUIZ</Text>
       {questions.length && !complete && <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>}
       {complete && <Text>I've been completed, correct count: {correctCount}</Text>}
     </View>

@@ -1,6 +1,5 @@
 const START_QUIZ = 'START_QUIZ';
 const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
-const END_QUIZ = 'END_QUIZ';
 const SHOW_ANSWER = 'SHOW_ANSWER';
 
 const initialState = {
@@ -10,7 +9,6 @@ const initialState = {
   complete: false,
   answerVisible: false
 };
-
 
 export default function quiz(state = initialState, action) {
   switch(action.type) {
@@ -37,8 +35,6 @@ export default function quiz(state = initialState, action) {
         ...state,
         answerVisible: true
       }
-    case END_QUIZ:
-      return state;
     default:
       return state;
   };

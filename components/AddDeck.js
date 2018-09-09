@@ -28,6 +28,4 @@ class AddDeck extends Component {
   }
 }
 
-
-
 export default connect()(AddDeck);

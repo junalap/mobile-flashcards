@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import Questions from './Questions';
 import CreateQuestion from './CreateQuestion';
 import { addQuestion } from '../actions/index';
 import { startQuiz } from '../actions/quiz';
@@ -13,17 +12,16 @@ class Deck extends Component {
 
   constructor(props) {
     super(props);
-
     this.startQuiz = this.startQuiz.bind(this);
   }
 
   startQuiz() {
-    this.props.dispatch(startQuiz(this.props.questions))
+    this.props.startQuiz(this.props.questions)
     this.props.navigation.navigate('Quiz')
   }
 
   render() {
-    const { deck } = this.props;
+    const { deck, addQuestion } = this.props;
 
     return (
       <View>
@@ -49,4 +47,9 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps)(Deck)
+const mapDispatchToProps = (dispatch) => ({
+  startQuiz: questions => dispatch(startQuiz(questions)),
+  addQuestion: question => dispatch(addQuestion(question))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Deck)

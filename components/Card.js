@@ -2,12 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default class Card extends Component {
-  // question
-  // showAnswer
-  // onCorrectAnswer
-  // onIncorrectAnswer
-
-
   constructor(props) {
     super(props);
   }
@@ -15,7 +9,6 @@ export default class Card extends Component {
   render() {
     const { question, onAnswer, answerVisible, showAnswer } = this.props;
 
-    // return <Text>What up</Text>
     return (
       <View style={styles.card}>
         <Text>{question.question}</Text>
