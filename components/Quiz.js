@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Card from './Card';
@@ -28,7 +28,13 @@ class Quiz extends Component {
 
     return <View>
       <Text>QUIZ</Text>
-      {questions.length && !complete && <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>}
+      {questions.length && !complete &&
+        <Fragment>
+          <Text>{currentQuestionIndex + 1}/{questions.length}</Text>
+          <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>
+        </Fragment>
+
+      }
       {complete && <Text>I've been completed, correct count: {correctCount}</Text>}
     </View>
   }
