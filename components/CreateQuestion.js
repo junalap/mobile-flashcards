@@ -13,8 +13,6 @@ class CreateQuestion extends Component {
   }
 
   render() {
-
-
     return (
       <View>
         <Text>Question</Text>
@@ -31,7 +29,7 @@ class CreateQuestion extends Component {
         />
         <Button
           onPress={() => { this.props.dispatch(this.props.addQuestion({...this.state, deckId: this.props.deckId})) }}
-          title='Create Question'
+          title='Add Card'
         />
       </View>
     )

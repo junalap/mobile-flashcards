@@ -6,14 +6,16 @@ import store from './store';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import Deck from  './components/Deck';
+import Quiz from './components/Quiz';
 
 import { requestDecks, requestQuestions } from './actions/index';
 
 const RootStack = createStackNavigator(
   {
     Home: DeckList,
-    AddDeck: AddDeck,
-    Deck: Deck
+    AddDeck,
+    Deck,
+    Quiz
   },
   {
     initialRoute: 'Home',
