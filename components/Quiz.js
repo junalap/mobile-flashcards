@@ -56,8 +56,6 @@ class Quiz extends Component {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log('state', state);
-  console.log('props', props);
   // I can always get questions form state if I have a deckId over here
   // So I don't need to pass questions around in params
   // create a utility function
@@ -66,7 +64,6 @@ const mapStateToProps = (state, props) => {
   //
 
   // dispatch startQuiz on component mount in order get the inialized quiz state values
-  debugger
 
   const { currentQuestionIndex, correctCount, complete, answerVisible } = state.quiz;
   const deckId = state.quiz.deckId || props.navigation.getParam('deckId');

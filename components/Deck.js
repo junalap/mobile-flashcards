@@ -20,12 +20,14 @@ class Deck extends Component {
 
   render() {
     const { deck, addQuestion } = this.props;
+    const { navigate } = this.props.navigation;
 
     return (
       <View>
         <Text>Title: {`${deck.title}`}</Text>
-        <CreateQuestion deckId={deck.id} addQuestion={addQuestion} />
+        <Text>{deck.questionIds.length} questions</Text>
         <Button title='Start Quiz' onPress={this.startQuiz}/>
+        <Button title='Add Card' onPress={() => navigate('AddQuestion', { deckId: deck.id})}/>
       </View>
     )
   }
@@ -34,7 +36,7 @@ class Deck extends Component {
 const mapStateToProps = (state, props) => {
   const deckId = props.navigation.getParam('deckId');
   const deck = state.decks[deckId];
-  debugger
+
   const questions = deck.questionIds.reduce((questionList, questionId) => {
     questionList.push(state.questions[questionId]);
     return questionList;

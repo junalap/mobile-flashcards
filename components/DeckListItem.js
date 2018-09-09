@@ -10,7 +10,7 @@ const DeckListItem = props => {
       onPress={() => { navigate('Deck', { deckId: deck.id }) } }
     >
       <Text>{deck.title}</Text>
-      <Text>{deck.questions && `${deck.questions.length} cards`}</Text>
+      <Text>{deck.questionIds && `${deck.questionIds.length} cards`}</Text>
     </TouchableOpacity>
   )
 };

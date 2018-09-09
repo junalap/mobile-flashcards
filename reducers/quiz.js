@@ -1,5 +1,4 @@
 const START_QUIZ = 'START_QUIZ';
-const POPULATE_QUIZ = 'POPULATE_QUIZ';
 const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
 const SHOW_ANSWER = 'SHOW_ANSWER';
 const INITIALIZE_QUIZ = 'INITIALIZE_QUIZ';
@@ -15,9 +14,7 @@ const initialState = {
 
 export default function quiz(state = initialState, action) {
   switch(action.type) {
-    case START_QUIZ:
-      console.log('START_QUIZ')
-      console.log(action)
+    case START_QUIZ: // Initialize Quiz
       return {
         ...initialState,
         questions: action.questions,
@@ -27,10 +24,7 @@ export default function quiz(state = initialState, action) {
       const { answeredCorrectly } = action ;
       const correctCount = answeredCorrectly ? state.correctCount + 1: state.correctCount
       const nextIndex = state.currentQuestionIndex + 1;
-
       const complete = nextIndex > Object.keys(state.questions).length - 1;
-      // console.log('complete: ', nextIndex > state.questions.length - 1)
-
 
       return {
         ...state,

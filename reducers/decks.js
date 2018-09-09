@@ -13,14 +13,12 @@ export default function decks(state = {}, action) {
       };
     case QUESTIONS_RECEIVED:
       const { questions } = action;
-      const updatedDeck = Object.values(questions).reduce((deck, question) => {
-
-        deck[question.deckId].questionIds.push(question.id);
-
-        return deck;
+      const updatedDecks = Object.values(questions).reduce((decks, question) => {
+        decks[question.deckId].questionIds.push(question.id);
+        return decks;
       }, {...state});
 
-      return updatedDeck;
+      return updatedDecks;
     case QUESTION_RECEIVED:
       const { question } = action;
 
