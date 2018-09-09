@@ -32,7 +32,7 @@ class Quiz extends Component {
     const { currentQuestionIndex, complete, correctCount, answerVisible } = this.props;
     const questions = Object.values(this.props.questions);
     const { navigate } = this.props.navigation;
-
+    debugger
     return <View>
       <Text>QUIZ</Text>
       {questions.length && !complete &&
@@ -44,10 +44,10 @@ class Quiz extends Component {
       }
       {complete &&
         <Fragment>
-          <Text>I've been completed, correct count: {correctCount}</Text>
+          <Text>Quiz Complete! Success Rate: {(100 * correctCount/questions.length).toFixed(2)}%</Text>
           {/* create utility function that takes state and deckId and return functions, this is getting ridiculous */}
 
-          {/* <Button title='Start Over' onPress={() => navigate('Q') }/> */}
+          <Button title='Start Over' onPress={() => this.props.startQuiz(this.props.questions) }/>
           <Button title='Deck View' onPress={() => navigate('Deck', { deckId: this.props.deckId }) }/>
         </Fragment>
       }
