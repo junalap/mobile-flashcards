@@ -9,21 +9,16 @@ class CreateQuestion extends Component {
       question: '',
       answer: ''
     }
-
     this.addQuestion = this.addQuestion.bind(this);
   }
 
   addQuestion() {
     const { deckId, addQuestion } = this.props;
-
     addQuestion({...this.state, deckId});
-
-    this.setState({ question: '', answer: '' })
+    this.setState({ question: '', answer: '' });
   }
 
   render() {
-
-
     return (
       <View>
         <Text>Question</Text>

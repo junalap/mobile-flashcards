@@ -3,7 +3,7 @@ import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Card from './Card';
 import { questionAnswered, showAnswer, startQuiz } from '../actions/quiz';
-import { getQuestionsForDeck } from '../utils/StateHelper';
+import { getQuestionsByDeckId } from '../utils/StateHelper';
 
 class Quiz extends Component {
   static navigationOptions = {
@@ -32,42 +32,33 @@ class Quiz extends Component {
     const { currentQuestionIndex, complete, correctCount, answerVisible } = this.props;
     const questions = Object.values(this.props.questions);
     const { navigate } = this.props.navigation;
-    debugger
-    return <View>
-      <Text>QUIZ</Text>
-      {questions.length && !complete &&
-        <Fragment>
-          <Text>{currentQuestionIndex + 1}/{questions.length}</Text>
-          <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>
-        </Fragment>
 
-      }
-      {complete &&
-        <Fragment>
-          <Text>Quiz Complete! Success Rate: {(100 * correctCount/questions.length).toFixed(2)}%</Text>
-          {/* create utility function that takes state and deckId and return functions, this is getting ridiculous */}
+    return (
+      <View>
+        <Text>QUIZ</Text>
+        {questions.length && !complete &&
+          <Fragment>
+            <Text>{currentQuestionIndex + 1}/{questions.length}</Text>
+            <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>
+          </Fragment>
 
-          <Button title='Start Over' onPress={() => this.props.startQuiz(this.props.questions) }/>
-          <Button title='Deck View' onPress={() => navigate('Deck', { deckId: this.props.deckId }) }/>
-        </Fragment>
-      }
-    </View>
+        }
+        {complete &&
+          <Fragment>
+            <Text>Quiz Complete! Success Rate: {(100 * correctCount/questions.length).toFixed(2)}%</Text>
+            <Button title='Re-take Quiz' onPress={() => this.props.startQuiz(this.props.questions) }/>
+            <Button title='Deck View' onPress={() => navigate('Deck', { deckId: this.props.deckId }) }/>
+          </Fragment>
+        }
+      </View>
+    )
   }
 };
 
 const mapStateToProps = (state, props) => {
-  // I can always get questions form state if I have a deckId over here
-  // So I don't need to pass questions around in params
-  // create a utility function
-
-  // get the questions from state over here
-  //
-
-  // dispatch startQuiz on component mount in order get the inialized quiz state values
-
   const { currentQuestionIndex, correctCount, complete, answerVisible } = state.quiz;
-  const deckId = state.quiz.deckId || props.navigation.getParam('deckId');
-  const questions = getQuestionsForDeck(deckId, state)
+  const deckId = props.navigation.getParam('deckId');
+  const questions = getQuestionsByDeckId(deckId, state)
 
   return {
     deckId,

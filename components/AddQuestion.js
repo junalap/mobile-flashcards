@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Text, View } from 'react-native';
 import CreateQuestion from './CreateQuestion';
 import { addQuestion } from '../actions/index';
 

@@ -1,7 +1,6 @@
 const START_QUIZ = 'START_QUIZ';
 const QUESTION_ANSWERED = 'QUESTION_ANSWERED';
 const SHOW_ANSWER = 'SHOW_ANSWER';
-const INITIALIZE_QUIZ = 'INITIALIZE_QUIZ';
 
 const initialState = {
   questions: {},
@@ -14,7 +13,7 @@ const initialState = {
 
 export default function quiz(state = initialState, action) {
   switch(action.type) {
-    case START_QUIZ: // Initialize Quiz
+    case START_QUIZ:
       return {
         ...initialState,
         questions: action.questions,

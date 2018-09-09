@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import CreateQuestion from './CreateQuestion';
-import { addQuestion } from '../actions/index';
 
 class Deck extends Component {
   static navigationOptions = {
@@ -19,7 +17,7 @@ class Deck extends Component {
   }
 
   render() {
-    const { deck, addQuestion } = this.props;
+    const { deck } = this.props;
     const { navigate } = this.props.navigation;
 
     return (
