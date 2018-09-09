@@ -1,7 +1,8 @@
 import uuid from 'uuid/v4';
 import { AsyncStorage } from 'react-native';
 
-AsyncStorage.getAllKeys((error, keys) => console.log(keys))
+// AsyncStorage.getAllKeys((error, keys) => console.log(keys))
+
 const fetchCollection = (resourceName) => {
   const idsKey = `${resourceName}Ids`;
 

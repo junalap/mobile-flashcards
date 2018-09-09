@@ -3,7 +3,6 @@ import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import CreateQuestion from './CreateQuestion';
 import { addQuestion } from '../actions/index';
-import { startQuiz } from '../actions/quiz';
 
 class Deck extends Component {
   static navigationOptions = {
@@ -16,8 +15,7 @@ class Deck extends Component {
   }
 
   startQuiz() {
-    this.props.startQuiz(this.props.questions)
-    this.props.navigation.navigate('Quiz')
+    this.props.navigation.navigate('Quiz',{ deckId: this.props.deckId })
   }
 
   render() {
@@ -36,19 +34,20 @@ class Deck extends Component {
 const mapStateToProps = (state, props) => {
   const deckId = props.navigation.getParam('deckId');
   const deck = state.decks[deckId];
+  debugger
   const questions = deck.questionIds.reduce((questionList, questionId) => {
     questionList.push(state.questions[questionId]);
     return questionList;
   }, []);
 
   return {
+    deckId,
     deck,
     questions
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startQuiz: questions => dispatch(startQuiz(questions)),
   addQuestion: question => dispatch(addQuestion(question))
 });
 

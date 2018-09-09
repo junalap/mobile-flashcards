@@ -9,9 +9,21 @@ class CreateQuestion extends Component {
       question: '',
       answer: ''
     }
+
+    this.addQuestion = this.addQuestion.bind(this);
+  }
+
+  addQuestion() {
+    const { deckId, addQuestion } = this.props;
+
+    addQuestion({...this.state, deckId});
+
+    this.setState({ question: '', answer: '' })
   }
 
   render() {
+
+
     return (
       <View>
         <Text>Question</Text>
@@ -27,7 +39,7 @@ class CreateQuestion extends Component {
           value={this.state.answer}
         />
         <Button
-          onPress={() => { this.props.addQuestion(this.state) }}
+          onPress={this.addQuestion}
           title='Add Card'
         />
       </View>
