@@ -14,28 +14,20 @@ import { Notifications, Permissions } from 'expo';
 
 
 const mockNotification = {
-  title: 'Fake Title',
-  body: 'Fake body.',
+  title: 'Mobile Flashcards',
+  body: "Don't forget to complete your daily quiz!",
   data: {
     fakeKey: 'Fake value'
   }
 };
 
-const mockOptions = {
-  time: new Date().getTime() + 10000,
-  repeat: 'minute'
-}
-
 const NOTIFICATION_KEY = 'MobileFlashcards:notifications'
 
 export const notificationTime = () => {
   const date = new Date();
-  // date.setHours(12, 0, 0, 0);
-  date.setHours(16, 20, 0, 0);
+  date.setHours(21, 0, 0, 0);
   return date
 }
-
-// AsyncStorage.removeItem('lastQuizCompletedAt').then(() => console.log('removal cmoplete'))
 
 const postCutoffTime = (time) => {
   return time > notificationTime();
@@ -45,11 +37,8 @@ const inToday = (time) => {
   return new Date().toDateString() === time.toDateString();
 }
 
-// AsyncStorage.getAllKeys().then((keys) => { console.log(keys); debugger })
-
 const onAppLoad = () => {
   Notifications.cancelAllScheduledNotificationsAsync().then(() => {
-    console.log('App loading: cancelling all previously scheduled notifications');
     let notifyAt = notificationTime();
 
     const rightNow = new Date();
