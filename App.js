@@ -28,12 +28,14 @@ const mockOptions = {
 
 const NOTIFICATION_KEY = 'MobileFlashcards:notifications'
 
-const notificationTime = () => {
+export const notificationTime = () => {
   const date = new Date();
   // date.setHours(12, 0, 0, 0);
-  date.setHours(9, 15, 0, 0);
+  date.setHours(16, 20, 0, 0);
   return date
 }
+
+// AsyncStorage.removeItem('lastQuizCompletedAt').then(() => console.log('removal cmoplete'))
 
 const postCutoffTime = (time) => {
   return time > notificationTime();
@@ -43,20 +45,16 @@ const inToday = (time) => {
   return new Date().toDateString() === time.toDateString();
 }
 
-
+// AsyncStorage.getAllKeys().then((keys) => { console.log(keys); debugger })
 
 const onAppLoad = () => {
   Notifications.cancelAllScheduledNotificationsAsync().then(() => {
-    AsyncStorage.removeItem('lastQuizCompletedAt').then(() => console.log('should be gone'))
     console.log('App loading: cancelling all previously scheduled notifications');
     let notifyAt = notificationTime();
 
     const rightNow = new Date();
 
     return getLastCompletedAt().then(lastCompletedAt => {
-      console.log(lastCompletedAt);
-      console.log(postCutoffTime(rightNow), inToday(new Date(lastCompletedAt)));
-
       if (postCutoffTime(rightNow) || inToday(new Date(lastCompletedAt))) {
         console.log('schedule tomorrow')
         notifyAt.setDate(notifyAt.getDate() + 1);
@@ -77,7 +75,7 @@ function clearLocalNotification () {
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-function setLocalNotification (notifyAt) {
+export function setLocalNotification (notifyAt) {
   return AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
@@ -85,18 +83,11 @@ function setLocalNotification (notifyAt) {
         mockNotification,
         { time: notifyAt }
       ).then(() => console.log('notification scheduled'));
-
-
-      //3333
-
-
-
       if (data === null) {
         console.log(Permissions.Notifications)
         // debugger
         Permissions.askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
-            console.log(status, 'nigga')
 
             if (status === 'undetermined') {
               Notifications.cancelAllScheduledNotificationsAsync()
@@ -111,7 +102,6 @@ function setLocalNotification (notifyAt) {
     })
 }
 
-AsyncStorage.getAllKeys().then(keys => console.log(keys));
 
 // title
 
