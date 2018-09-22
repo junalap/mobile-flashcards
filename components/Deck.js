@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { StyleSheet } from 'react-native';
 
 class Deck extends Component {
   static navigationOptions = {
@@ -21,18 +22,58 @@ class Deck extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View>
-        <Text>Title: {`${deck.title}`}</Text>
-        <Text>{deck.questionIds.length} questions</Text>
-        <Button title='Start Quiz' onPress={this.startQuiz}/>
-        <Button title='Add Card' onPress={() => navigate('AddQuestion', { deckId: deck.id})}/>
+      <View style={styles.container}>
+        <View style={styles.deckInfo}>
+          <Text style={styles.title}>{`${deck.title}`}</Text>
+          <Text style={styles.cardCount}>{deck.questionIds.length} questions</Text>
+        </View>
+        <View style={styles.buttonGroup}>
+            {deck.questionIds.length && <TouchableOpacity style={styles.button} onPress={this.startQuiz}>
+            <Text style={styles.buttonText}>Start Quiz</Text>
+          </TouchableOpacity>}
+          <TouchableOpacity style={styles.button} onPress={() => navigate('AddQuestion', { deckId: deck.id})}>
+            <Text style={styles.buttonText}>Add Card</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  deckInfo: {
+    flex: 4,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonGroup: {
+    flex: 3
+  },
+  title: {
+    fontSize: 40
+  },
+  button: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 25,
+    paddingRight: 25,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 10,
+    marginTop: 10
+  },
+  buttonText: {
+    fontSize: 15
+  }
+})
+
 const mapStateToProps = (state, props) => {
   const deckId = props.navigation.getParam('deckId');
+  console.log(deckId)
   const deck = state.decks[deckId];
 
   const questions = deck.questionIds.reduce((questionList, questionId) => {

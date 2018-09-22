@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, TextInput } from 'react-native';
+import { Button, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 
 class CreateQuestion extends Component {
   constructor(props) {
@@ -20,26 +20,55 @@ class CreateQuestion extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Question</Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          style={styles.textInput}
           onChangeText={text => this.setState({...this.state, question: text})}
           value={this.state.question}
         />
         <Text>Answer</Text>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          style={styles.textInput}
           onChangeText={text => this.setState({...this.state, answer: text})}
           value={this.state.answer}
         />
-        <Button
-          onPress={this.addQuestion}
-          title='Add Card'
-        />
+        <TouchableOpacity style={styles.button} onPress={this.addQuestion}>
+          <Text>
+            Add Card
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 25,
+  },
+  textInput: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    alignSelf: 'stretch',
+    marginTop: 20,
+    marginBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    padding: 10
+  },
+  button: {
+    marginTop: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    borderWidth: 1,
+    borderRadius: 10
+  }
+});
 
 export default CreateQuestion;

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default class Card extends Component {
   constructor(props) {
@@ -8,17 +8,28 @@ export default class Card extends Component {
 
   render() {
     const { question, onAnswer, answerVisible, showAnswer } = this.props;
-
+    // setTimeout(() => {showAnswer()}, 0)
     return (
       <View style={styles.card}>
-        <Text>{question.question}</Text>
-        {!answerVisible && <Button title='Show Answer' onPress={showAnswer} />}
+        <View style={styles.question}><Text style={styles.questionText}>{question.question}</Text></View>
+
+        {!answerVisible &&
+          <TouchableOpacity style={styles.showAnswerButton} title='Show Answer' onPress={showAnswer}>
+            <Text>Show Answer</Text>
+          </TouchableOpacity>
+        }
         {answerVisible &&
-          <Fragment>
-            <Text>Answer: {question.answer}</Text>
-            <Button title='Correct' onPress={() => onAnswer(true)} />
-            <Button title='Incorrect' onPress={() => onAnswer(false)} />
-          </Fragment>
+          <View style={styles.answer}>
+            <Text style={styles.answerText}>Answer: {question.answer}</Text>
+            <View style={styles.buttonGroup}>
+              <TouchableOpacity style={styles.button} title='Correct' onPress={() => onAnswer(true)}>
+                <Text style={styles.buttonText}>Correct</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} title='Incorrect' onPress={() => onAnswer(false)}>
+                <Text style={styles.buttonText}>Incorrect</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         }
       </View>
     )
@@ -27,14 +38,55 @@ export default class Card extends Component {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 30,
+    padding: 15,
     marginTop: 5,
     marginBottom: 5,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flex: 1
+  },
+  question: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 15
+  },
+  questionText: {
+    fontSize: 30
+  },
+  showAnswerButton: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingRight: 10,
+    paddingLeft: 10,
+    // fontSize: 20,
     borderWidth: 1,
-    borderColor: '#f4511e',
-    width: 250,
+    borderRadius: 10,
+    borderColor: 'gray',
+    justifyContent: 'center'
   },
-  red: {
-    color: 'red',
+  answer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
+  answerText: {
+    fontSize: 20
+  },
+  buttonGroup: {
+
+  },
+  button: {
+    borderWidth: 1,
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 25,
+    paddingRight: 25,
+    borderRadius: 10,
+    marginTop: 15
+  },
+  buttonText: {
+    fontSize: 20
+  }
 });

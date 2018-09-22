@@ -9,7 +9,7 @@ const DeckListItem = props => {
       style={styles.deckListItem}
       onPress={() => { navigate('Deck', { deckId: deck.id }) } }
     >
-      <Text>{deck.title}</Text>
+      <Text style={{fontSize: 40 }}>{deck.title}</Text>
       <Text>{deck.questionIds && `${deck.questionIds.length} cards`}</Text>
     </TouchableOpacity>
   )
@@ -18,14 +18,14 @@ const DeckListItem = props => {
 const styles = StyleSheet.create({
   deckListItem: {
     padding: 30,
-    marginTop: 5,
-    marginBottom: 5,
-    borderWidth: 1,
-    borderColor: '#f4511e',
-    width: 250,
+    borderBottomWidth: 1,
+    borderColor: 'gray',
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   red: {
-    color: 'red',
+    color: 'gray',
   },
 });
 

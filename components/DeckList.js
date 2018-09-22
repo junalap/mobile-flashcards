@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
 import DeckListItem from './DeckListItem';
 
@@ -11,18 +11,24 @@ class DeckList extends Component {
   render() {
     const decks = this.props.decks;
     const { navigate } = this.props.navigation;
-
+    console.log(decks)
     return (
       <View style={styles.container}>
-        <Button
-          onPress={() => navigate({routeName: 'AddDeck'})}
-          title="Create New Deck"
-        />
-        <ScrollView>
-          {Object.keys(decks).map((key, i) => (
-            <DeckListItem key={i} deck={decks[key]} navigate={navigate} />
-          ))}
-        </ScrollView>
+        <View>
+          {/* <View style={{flex:1}}> */}
+          <TouchableOpacity style={styles.button} onPress={() => navigate({routeName: 'AddDeck'})}>
+            <Text>Create New Deck</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.scrollViewContainer}>
+          <ScrollView style={styles.list}>
+            {Object.keys(decks).map((key, i) => (
+              <DeckListItem key={i} deck={decks[key]} navigate={navigate} />
+            ))}
+          </ScrollView>
+        </View>
+
+
       </View>
     );
   };
@@ -36,9 +42,30 @@ const mapStateToProps = (state) => {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  scrollViewContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    borderTopWidth: 1,
+    marginTop: 10
+  },
+  list: {
+    // borderWidth: 1
+  },
+  button: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 15,
+    paddingTop: 15,
     alignItems: 'center',
-    justifyContent: 'center'
+    marginTop: 10,
+    borderRadius: 10
   }
 });
 

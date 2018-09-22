@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import Card from './Card';
 import { questionAnswered, showAnswer, startQuiz, quizComplete } from '../actions/quiz';
 import { getQuestionsByDeckId } from '../utils/StateHelper';
-
 class Quiz extends Component {
   static navigationOptions = {
     title: "All Decks"
@@ -37,26 +36,52 @@ class Quiz extends Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View>
-        <Text>QUIZ</Text>
+      <View style={styles.container}>
         {questions.length && !complete &&
-          <Fragment>
-            <Text>{currentQuestionIndex + 1}/{questions.length}</Text>
+          <View style={{alignSelf: 'stretch', flex: 1, alignItems: 'center'}}>
+            <Text style={{alignSelf: 'flex-start'}}>{currentQuestionIndex + 1}/{questions.length}</Text>
             <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>
-          </Fragment>
+          </View>
 
         }
         {complete &&
-          <Fragment>
-            <Text>Quiz Complete! Success Rate: {(100 * correctCount/questions.length).toFixed(2)}%</Text>
-            <Button title='Re-take Quiz' onPress={() => this.props.startQuiz(this.props.questions) }/>
-            <Button title='Deck View' onPress={() => navigate('Deck', { deckId: this.props.deckId }) }/>
-          </Fragment>
+          <View style={{alignItems: 'center'}}>
+            <Text style={{fontSize: 35}}>Congratulations!</Text>
+            <Text style={{fontSize: 15}}>You've completed a quiz!</Text>
+            <Text style={{fontSize: 10, marginTop: 5}}>Score: {(100 * correctCount/questions.length).toFixed(2)}%</Text>
+            <TouchableOpacity style={styles.button} onPress={() => this.props.startQuiz(this.props.questions) }>
+              <Text>Re-take Quiz</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => navigate('Deck', { deckId: this.props.deckId }) }>
+              <Text>Deck View</Text>
+            </TouchableOpacity>
+          </View>
         }
       </View>
     )
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  button: {
+    marginTop: 15,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray'
+  }
+});
 
 const mapStateToProps = (state, props) => {
   const { currentQuestionIndex, correctCount, complete, answerVisible } = state.quiz;
