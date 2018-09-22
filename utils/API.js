@@ -51,6 +51,10 @@ const createResource = (resourceName, object) => {
   })
 };
 
+export const setLastQuizCompletedAt = () => {
+  return AsyncStorage.setItem('lastQuizCompletedAt', new Date().toString());
+}
+
 export const fetchDecks = () => fetchCollection('deck');
 
 export const fetchQuestions = () => fetchCollection('question');
@@ -74,4 +78,8 @@ export const createQuestion = (question) => {
   };
 
   return createResource('question', questionObject);
+};
+
+export const getLastCompletedAt = () => {
+  return AsyncStorage.getItem('lastQuizCompletedAt')
 };

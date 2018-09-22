@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Button, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import Card from './Card';
-import { questionAnswered, showAnswer, startQuiz } from '../actions/quiz';
+import { questionAnswered, showAnswer, startQuiz, quizComplete } from '../actions/quiz';
 import { getQuestionsByDeckId } from '../utils/StateHelper';
 
 class Quiz extends Component {
@@ -25,7 +25,10 @@ class Quiz extends Component {
   }
 
   onAnswer(answeredCorrectly) {
-    this.props.onAnswer(answeredCorrectly);
+    const { onAnswer, onQuizComplete, currentQuestionIndex, questions } = this.props;
+
+    if (currentQuestionIndex === Object.values(questions).length - 1) { onQuizComplete() }
+    onAnswer(answeredCorrectly);
   }
 
   render() {
@@ -76,7 +79,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(startQuiz(questions))
     },
     showAnswer: () => dispatch(showAnswer()),
-    onAnswer: (answeredCorrectly) => dispatch(questionAnswered(answeredCorrectly))
+    onAnswer: (answeredCorrectly) => dispatch(questionAnswered(answeredCorrectly)),
+    onQuizComplete: () => dispatch(quizComplete())
   }
 }
 

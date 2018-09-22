@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import DeckListItem from './DeckListItem';
 
 class DeckList extends Component {
   static navigationOptions = {
-    title: "All Decks"
+    title: "Decks"
   }
 
   render() {
@@ -14,33 +14,32 @@ class DeckList extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView styles={styles.scrollView}>
+        <Button
+          onPress={() => navigate({routeName: 'AddDeck'})}
+          title="Create New Deck"
+        />
+        <ScrollView>
           {Object.keys(decks).map((key, i) => (
             <DeckListItem key={i} deck={decks[key]} navigate={navigate} />
           ))}
         </ScrollView>
-        <Button
-          onPress={() => navigate({routeName: 'AddDeck'})}
-          title="Add Deck"
-          color="#841584"
-        />
       </View>
-
-    )
-  }
+    );
+  };
 };
 
 const mapStateToProps = (state) => {
   return {
     decks: state.decks
   }
-}
+};
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'row'
+    alignItems: 'center',
+    justifyContent: 'center'
   }
-}
+});
 
 export default connect(mapStateToProps)(DeckList);
