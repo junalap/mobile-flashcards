@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, Button, StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux';
 import { addDeck } from '../actions/index';
 
 class AddDeck extends Component {
   constructor(props) {
     super(props);
-    this.state = { text: 'Deck Title' }
+    this.state = { text: 'Enter deck title...' }
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 45}}>
+        <Text style={styles.prompt}>
           What is the title of your new deck?
         </Text>
         <TextInput
@@ -19,7 +19,10 @@ class AddDeck extends Component {
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
         />
-        <TouchableOpacity style={styles.button} onPress={() => this.props.dispatch(addDeck(this.state.text))}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.props.dispatch(addDeck(this.state.text))}
+        >
           <Text>
             Submit
           </Text>
@@ -34,6 +37,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     alignItems: 'center'
+  },
+  prompt: {
+    fontSize: 45
   },
   textInput: {
     marginTop: 25,

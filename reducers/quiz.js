@@ -38,10 +38,6 @@ export default function quiz(state = initialState, action) {
         ...state,
         answerVisible: true
       }
-    // case QUIZ_COMPLETE:
-    //   return {
-    //     ...state
-    //   }
     default:
       return state;
   };

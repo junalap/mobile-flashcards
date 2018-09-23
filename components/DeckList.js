@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DeckListItem from './DeckListItem';
-
 class DeckList extends Component {
   static navigationOptions = {
     title: "Decks"
@@ -11,12 +10,14 @@ class DeckList extends Component {
   render() {
     const decks = this.props.decks;
     const { navigate } = this.props.navigation;
-    console.log(decks)
+
     return (
       <View style={styles.container}>
         <View>
-          {/* <View style={{flex:1}}> */}
-          <TouchableOpacity style={styles.button} onPress={() => navigate({routeName: 'AddDeck'})}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigate({routeName: 'AddDeck'})}
+          >
             <Text>Create New Deck</Text>
           </TouchableOpacity>
         </View>
@@ -27,18 +28,12 @@ class DeckList extends Component {
             ))}
           </ScrollView>
         </View>
-
-
       </View>
     );
   };
 };
 
-const mapStateToProps = (state) => {
-  return {
-    decks: state.decks
-  }
-};
+const mapStateToProps = ({ decks }) => ({ decks });
 
 const styles = StyleSheet.create({
   container: {
@@ -52,9 +47,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderTopWidth: 1,
     marginTop: 10
-  },
-  list: {
-    // borderWidth: 1
   },
   button: {
     borderColor: 'gray',

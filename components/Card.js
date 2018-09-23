@@ -1,6 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+const Answer = ({ question, onAnswer }) => (
+  <View style={styles.answer}>
+    <Text style={styles.answerText}>Answer: {question.answer}</Text>
+    <View style={styles.buttonGroup}>
+      <TouchableOpacity style={styles.button} title='Correct' onPress={() => onAnswer(true)}>
+        <Text style={styles.buttonText}>Correct</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} title='Incorrect' onPress={() => onAnswer(false)}>
+        <Text style={styles.buttonText}>Incorrect</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+)
+
 export default class Card extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +22,7 @@ export default class Card extends Component {
 
   render() {
     const { question, onAnswer, answerVisible, showAnswer } = this.props;
-    // setTimeout(() => {showAnswer()}, 0)
+
     return (
       <View style={styles.card}>
         <View style={styles.question}><Text style={styles.questionText}>{question.question}</Text></View>
@@ -18,18 +32,7 @@ export default class Card extends Component {
             <Text>Show Answer</Text>
           </TouchableOpacity>
         }
-        {answerVisible &&
-          <View style={styles.answer}>
-            <Text style={styles.answerText}>Answer: {question.answer}</Text>
-            <View style={styles.buttonGroup}>
-              <TouchableOpacity style={styles.button} title='Correct' onPress={() => onAnswer(true)}>
-                <Text style={styles.buttonText}>Correct</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} title='Incorrect' onPress={() => onAnswer(false)}>
-                <Text style={styles.buttonText}>Incorrect</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+        {answerVisible && <Answer onAnswer={onAnswer} question={question}/>
         }
       </View>
     )
@@ -59,7 +62,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingRight: 10,
     paddingLeft: 10,
-    // fontSize: 20,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: 'gray',

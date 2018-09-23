@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
-import { Button, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Card from './Card';
 import { questionAnswered, showAnswer, startQuiz, quizComplete } from '../actions/quiz';
 import { getQuestionsByDeckId } from '../utils/StateHelper';
@@ -26,7 +27,10 @@ class Quiz extends Component {
   onAnswer(answeredCorrectly) {
     const { onAnswer, onQuizComplete, currentQuestionIndex, questions } = this.props;
 
-    if (currentQuestionIndex === Object.values(questions).length - 1) { onQuizComplete() }
+    if (currentQuestionIndex === Object.values(questions).length - 1) {
+      onQuizComplete()
+    }
+
     onAnswer(answeredCorrectly);
   }
 
@@ -39,8 +43,15 @@ class Quiz extends Component {
       <View style={styles.container}>
         {questions.length && !complete &&
           <View style={{alignSelf: 'stretch', flex: 1, alignItems: 'center'}}>
-            <Text style={{alignSelf: 'flex-start'}}>{currentQuestionIndex + 1}/{questions.length}</Text>
-            <Card question={questions[currentQuestionIndex]} answerVisible={answerVisible} showAnswer={this.showAnswer} onAnswer={this.onAnswer}/>
+            <Text style={{alignSelf: 'flex-start'}}>
+              {currentQuestionIndex + 1}/{questions.length}
+            </Text>
+            <Card
+              question={questions[currentQuestionIndex]}
+              answerVisible={answerVisible}
+              showAnswer={this.showAnswer}
+              onAnswer={this.onAnswer}
+            />
           </View>
 
         }
@@ -48,11 +59,16 @@ class Quiz extends Component {
           <View style={{alignItems: 'center'}}>
             <Text style={{fontSize: 35}}>Congratulations!</Text>
             <Text style={{fontSize: 15}}>You've completed a quiz!</Text>
-            <Text style={{fontSize: 10, marginTop: 5}}>Score: {(100 * correctCount/questions.length).toFixed(2)}%</Text>
+            <Text style={{fontSize: 10, marginTop: 5}}>
+              Score: {(100 * correctCount/questions.length).toFixed(2)}%
+            </Text>
             <TouchableOpacity style={styles.button} onPress={() => this.props.startQuiz(this.props.questions) }>
               <Text>Re-take Quiz</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigate('Deck', { deckId: this.props.deckId }) }>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigate('Deck', { deckId: this.props.deckId }) }
+            >
               <Text>Deck View</Text>
             </TouchableOpacity>
           </View>

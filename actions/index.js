@@ -14,49 +14,37 @@ export const questionsReceived = (questions) => ({ type: QUESTIONS_RECEIVED, que
 export const requestDecks = () => {
   return dispatch => {
     return fetchDecks()
-      .then(decks => {
-        dispatch(decksReceived(decks || {})) })
-      .catch(error => {
-        console.warn(error);})
+      .then(decks => dispatch(decksReceived(decks || {})))
+      .catch(error => console.warn(error))
   };
 };
+
 export const requestQuestions = () => {
   return dispatch => {
     return fetchQuestions()
-      .then(questions => {
-        dispatch(questionsReceived(questions))})
-      .catch(error => {
-        console.warn(error);})
+      .then(questions => dispatch(questionsReceived(questions)))
+      .catch(error => console.warn(error));
   };
-}
+};
+
 export const addDeck = (title) => {
   return dispatch => {
     createDeck(title)
       .then(deck => {
         dispatch(deckReceived(deck));
-        // TODO: Navigate to Deck Show page
         NavigationService.navigate('Deck', { deckId: deck.id });
       })
-      .catch(error => {
-        console.warn(error);
-    });
+      .catch(error => console.warn(error));
   };
 };
 
-
-// general phenomenon like, should addQuestion take a question id and an object
-// rather than having the id stored directly on the question and having my API
-// knowing the ID that way, this feels like a general phenomenon that
-// that people discuss, perhaps a topic with a name
-
 export const addQuestion = (question) => {
   return dispatch => {
-    createQuestion(question).then(question => {
-      dispatch(questionReceived(question));
-      NavigationService.navigate('Deck', { deckId: question.deckId })
-    })
-    .catch(error => {
-      console.warn(error)
-    })
+    createQuestion(question)
+      .then(question => {
+        dispatch(questionReceived(question));
+        NavigationService.navigate('Deck', { deckId: question.deckId })
+      })
+      .catch(error => console.warn(error));
   }
 }

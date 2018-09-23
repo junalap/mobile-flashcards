@@ -17,13 +17,7 @@ class AddQuestion extends Component {
   };
 };
 
-const mapStateToProps = (state, props) => {
-  const deckId = props.navigation.getParam('deckId');
-
-  return {
-    deckId
-  };
-};
+const mapStateToProps = (state, props) => ({ deckId: props.navigation.getParam('deckId') });
 
 const mapDispatchToProps = (dispatch) => ({
   addQuestion: (question) => {

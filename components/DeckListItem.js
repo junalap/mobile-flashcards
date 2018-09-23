@@ -7,7 +7,7 @@ const DeckListItem = props => {
   return (
     <TouchableOpacity
       style={styles.deckListItem}
-      onPress={() => { navigate('Deck', { deckId: deck.id }) } }
+      onPress={() => { navigate('Deck', { deckId: deck.id }) }}
     >
       <Text style={{fontSize: 40 }}>{deck.title}</Text>
       <Text>{deck.questionIds && `${deck.questionIds.length} cards`}</Text>

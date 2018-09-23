@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 class CreateQuestion extends Component {
   constructor(props) {
