@@ -15,40 +15,38 @@ const fetchCollection = (resourceName) => {
 
     const ids = JSON.parse(idsJSON);
     const storageIds = ids.map(id => `${resourceName}:${id}`);
-
-    return AsyncStorage.multiGet(storageIds).then(storageKeyVals => {
-      const resourceList = storageKeyVals.reduce((resourceList, keyVal) => {
+    const instantiateResources = storageKeyVals => (
+      storageKeyVals.reduce((resourceList, keyVal) => {
         const storageValue = keyVal[1];
         const object = JSON.parse(storageValue);
-
         return {...resourceList, [object.id]: object }
-      }, {});
+      }, {})
+    );
+    const returnResourceList = resourceList => new Promise((resolve, reject) => resolve(resourceList));
 
-      return new Promise((resolve, reject) => {
-        return resolve(resourceList);
-      })
-    }).catch((error) => console.warn(error));
+    return AsyncStorage.multiGet(storageIds)
+      .then(instantiateResources)
+      .then(returnResourceList)
+      .catch(error => console.warn(error))
   });
 };
-
 const createResource = (resourceName, object) => {
   const resourceIdsKey = `${resourceName}Ids`;
-  const resource = {...object, id: uuid()}
+  const resource = {...object, id: uuid()};
 
-  return AsyncStorage.getItem(resourceIdsKey).then(resourceIdsJSON => {
-    const allIds = JSON.parse(resourceIdsJSON) || [];
+  const saveResource = () => AsyncStorage.setItem(`${resourceName}:${resource.id}`, JSON.stringify(resource))
+  const returnResource = () => new Promise((resolve, reject) => resolve(resource));
+  const getIdList = () => AsyncStorage.getItem(resourceIdsKey);
+  const addIdToIdList = resourceIdsJSON => {
+    const idList = JSON.parse(resourceIdsJSON) || [];
+    idList.push(resource.id);
+    return AsyncStorage.setItem(resourceIdsKey, JSON.stringify(idList));
+  };
 
-    return AsyncStorage.setItem(`${resourceName}:${resource.id}`, JSON.stringify(resource)).then(() => {
-      allIds.push(resource.id);
-
-      return AsyncStorage.setItem(resourceIdsKey, JSON.stringify(allIds)).then(() => {
-        return new Promise((resolve, reject) => {
-          return resolve(resource);
-        });
-      });
-    });
-
-  })
+  return getIdList()
+    .then(addIdToIdList)
+    .then(saveResource)
+    .then(returnResource);
 };
 
 export const setLastQuizCompletedAt = () => {

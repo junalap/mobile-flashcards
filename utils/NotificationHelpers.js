@@ -22,13 +22,13 @@ const notification = {
 
 export const setLocalNotification = (notifyAt) => {
   return Permissions.askAsync(Permissions.NOTIFICATIONS)
-  .then(Notifications.cancelAllScheduledNotificationsAsync)
-  .then(() => {
-    return Notifications.scheduleLocalNotificationAsync(
-      notification,
-      { time: notifyAt }
-    )
-  })
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
+    .then(() => {
+      return Notifications.scheduleLocalNotificationAsync(
+        notification,
+        { time: notifyAt }
+      )
+    })
   .catch(error => console.warn(error));;
 };
 
