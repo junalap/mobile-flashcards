@@ -20,6 +20,7 @@ class Deck extends Component {
   render() {
     const { deck } = this.props;
     const { navigate } = this.props.navigation;
+    const cardCount = deck.questionIds && deck.questionIds.length;
 
     return (
       <View style={styles.container}>
@@ -28,9 +29,11 @@ class Deck extends Component {
           <Text style={styles.cardCount}>{deck.questionIds.length} questions</Text>
         </View>
         <View style={styles.buttonGroup}>
-            {deck.questionIds.length && <TouchableOpacity style={styles.button} onPress={this.startQuiz}>
-            <Text style={styles.buttonText}>Start Quiz</Text>
-          </TouchableOpacity>}
+            {cardCount > 0 &&
+              <TouchableOpacity style={styles.button} onPress={this.startQuiz}>
+                <Text style={styles.buttonText}>Start Quiz</Text>
+              </TouchableOpacity>
+            }
           <TouchableOpacity style={styles.button} onPress={() => navigate('AddQuestion', { deckId: deck.id})}>
             <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>

@@ -3,7 +3,7 @@ import { getLastCompletedAt } from '../utils/API';
 
 export const notificationTimeToday = () => {
   const date = new Date();
-  date.setHours(21, 0, 0, 0);
+  date.setHours(20, 0, 0, 0);
   return date;
 }
 
@@ -22,12 +22,13 @@ const notification = {
 
 export const setLocalNotification = (notifyAt) => {
   return Permissions.askAsync(Permissions.NOTIFICATIONS)
+  .then(Notifications.cancelAllScheduledNotificationsAsync)
   .then(() => {
-    Notifications.cancelAllScheduledNotificationsAsync()
-    Notifications.scheduleLocalNotificationAsync(
+    return Notifications.scheduleLocalNotificationAsync(
       notification,
       { time: notifyAt }
-    )})
+    )
+  })
   .catch(error => console.warn(error));;
 };
 
@@ -47,11 +48,3 @@ export const setNotification = () => {
       return setLocalNotification(notifyAt)
     }).catch(error => console.warn(error))
 }
-
-
-
-
-
-
-
-
