@@ -42,3 +42,13 @@ My solution for this project was
 ### Notification Timing
 
 Notifications are set to go off at 8PM every day unless a quiz has already been completed by that day. This can be adjusted in `notificationTimeToday` in `utils/NotificationsHelpers.js`.
+
+
+### Tested With
+
+This was tested using Expo in conjunction with:
+
+* Android Studio 3.1.4 running Pixel API 22 Emulator
+* IOS Simulator 10.0 running iPhone 5s - IOS 10.3
+
+To verify the notification in the IOS simulator the Mobile Flashcards app should NOT be in the foreground. I didn't include a way to delete the record of a quiz being completed, which can make testing more cumbersome. One workaround is to clear the record of the last quiz complete via `AsyncStorage.removeItem('lastQuizCompletedAt)` and fiddle with the `notificationTime` to quickly test whatever scenarios you're interested in.

@@ -10,7 +10,7 @@ class AddDeck extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { text: 'Enter deck title...' }
+    this.state = { text: null }
   }
   render() {
     return (
@@ -22,6 +22,7 @@ class AddDeck extends Component {
           style={styles.textInput}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
+          placeholder={'Deck Title'}
         />
         <TouchableOpacity
           style={styles.button}
