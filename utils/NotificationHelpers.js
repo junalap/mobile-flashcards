@@ -36,15 +36,12 @@ export const setNotification = () => {
     .cancelAllScheduledNotificationsAsync()
     .then(getLastCompletedAt)
     .then(lastCompletedAt => {
-      let notifyAt = notificationTimeToday();
       const rightNow = new Date();
       const lastCompletedAtDate = new Date(lastCompletedAt)
 
+      let notifyAt = notificationTimeToday();
       if (postCutoffTime(rightNow) || inToday(lastCompletedAtDate)) {
-        console.log('schedule tomorrow')
         notifyAt.setDate(notifyAt.getDate() + 1);
-      } else if (!lastCompletedAt) {
-        console.log('schedule today')
       }
 
       return setLocalNotification(notifyAt)
