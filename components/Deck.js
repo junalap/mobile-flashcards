@@ -4,8 +4,10 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native';
 
 class Deck extends Component {
-  static navigationOptions = {
-    title: "Deck"
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('deckTitle'),
+    };
   }
 
   constructor(props) {
@@ -14,7 +16,8 @@ class Deck extends Component {
   }
 
   startQuiz() {
-    this.props.navigation.navigate('Quiz',{ deckId: this.props.deckId })
+    const { navigation, deck, deckId } = this.props;
+    navigation.navigate('Quiz',{ deckId: deckId, screenTitle: `Quiz: ${deck.title}` })
   }
 
   render() {
@@ -34,7 +37,12 @@ class Deck extends Component {
                 <Text style={styles.buttonText}>Start Quiz</Text>
               </TouchableOpacity>
             }
-          <TouchableOpacity style={styles.button} onPress={() => navigate('AddQuestion', { deckId: deck.id})}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigate('AddQuestion', { deckId: deck.id, deckTitle: deck.title})
+            }}
+          >
             <Text style={styles.buttonText}>Add Card</Text>
           </TouchableOpacity>
         </View>

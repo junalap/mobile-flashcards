@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { addDeck } from '../actions/index';
 
 class AddDeck extends Component {
+  static navigationOptions = {
+    title: "Create New Deck"
+  }
+
   constructor(props) {
     super(props);
     this.state = { text: 'Enter deck title...' }

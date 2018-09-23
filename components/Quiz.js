@@ -6,8 +6,10 @@ import Card from './Card';
 import { questionAnswered, showAnswer, startQuiz, quizComplete } from '../actions/quiz';
 import { getQuestionsByDeckId } from '../utils/StateHelper';
 class Quiz extends Component {
-  static navigationOptions = {
-    title: "All Decks"
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('screenTitle')
+    }
   }
 
   constructor(props) {

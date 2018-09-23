@@ -4,6 +4,12 @@ import CreateQuestion from './CreateQuestion';
 import { addQuestion } from '../actions/index';
 
 class AddQuestion extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: `${navigation.getParam('deckTitle')}: Add card`
+    }
+  }
+
   constructor(props) {
     super(props);
   }

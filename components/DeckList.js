@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 import DeckListItem from './DeckListItem';
 class DeckList extends Component {
   static navigationOptions = {
-    title: "Decks"
+    title: "All Decks"
   }
 
   render() {
