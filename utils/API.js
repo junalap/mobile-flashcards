@@ -54,10 +54,9 @@ export const setLastQuizCompletedAt = () => {
 }
 
 export const fetchDecks = () => fetchCollection('deck');
-
 export const fetchQuestions = () => fetchCollection('question');
 
-export const createDeck = (title) => {
+export const createDeck = title => {
   const id = uuid();
   const deckObject = {
     id,

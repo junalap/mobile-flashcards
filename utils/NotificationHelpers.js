@@ -29,7 +29,7 @@ export const setLocalNotification = (notifyAt) => {
         { time: notifyAt }
       )
     })
-  .catch(error => console.warn(error));;
+  .catch(error => console.warn(error));
 };
 
 export const setNotification = () => {
