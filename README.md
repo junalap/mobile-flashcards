@@ -1,7 +1,6 @@
 
 
 # Mobile Flashcards
-### Anuj Paliwal, anujpaliwal2.0@gmail.com
 
 This project was created for Udacity's React Nanodegree Program. It was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
